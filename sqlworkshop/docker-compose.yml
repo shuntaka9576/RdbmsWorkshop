@@ -1,0 +1,20 @@
+version: '2'
+services:
+  workshop_mysql:
+    build: ./env
+    volumes:
+       - ./env/dbvolume:/var/lib/mysql
+    ports:
+       - 3306:3306
+    environment:
+       - TZ=JST-9
+       - MYSQL_ROOT_PASSWORD=Passw0rd
+    restart: always
+  portainer_master:
+    image: portainer/portainer
+    ports:
+      - 9000:9000
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
