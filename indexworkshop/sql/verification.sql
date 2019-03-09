@@ -1,11 +1,14 @@
--- use table
-use index_sample;
-select * from item;
+select '*-*-*-*-*-*- no index test *-*-*-*-*-*-' as '';
+show index from index_sample.item;
+explain select item_type, sum(item_price) from index_sample.item group by item_type;
+select item_type, sum(item_price) from index_sample.item group by item_type;
+select '*-*-*-*-*-*- no index test(end) *-*-*-*-*-*-' as '';
 
--- create index
-DROP INDEX item_type on item;
-alter table item add index (item_type);
+select 'add index' as '';
+alter table index_sample.item add index (item_type);
 
--- play sql
-select item_type, sum(item_price) from item group by item_type;
-explain select item_type, sum(item_price) from item group by item_type;
+select '*-*-*-*-*-*- use index test *-*-*-*-*-*-' as '';
+show index from index_sample.item;
+explain select item_type, sum(item_price) from index_sample.item group by item_type;
+select item_type, sum(item_price) from index_sample.item group by item_type;
+select '*-*-*-*-*-*- use index test(end) *-*-*-*-*-*-' as '';
