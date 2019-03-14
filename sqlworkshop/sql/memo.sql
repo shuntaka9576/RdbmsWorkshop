@@ -61,4 +61,31 @@ GROUP BY category.name
 ORDER BY count DESC
 ;
 
+-- 各フィルムに出ている俳優の名前が分かるSQL
+    SELECT 
+    film.film_id,
+    actor.actor_id,
+    film.title,
+    CONCAT(actor.first_name, ' ', actor.last_name) AS full_name
+FROM
+    film
+        INNER JOIN
+    film_actor ON film.film_id = film_actor.film_id
+        INNER JOIN
+    actor ON film_actor.actor_id = actor.actor_id;
+    
+    -- どの俳優が一番フィルムに出ているか分かるSQL
+    SELECT 
+    film.film_id,
+    actor.actor_id,
+    CONCAT(actor.first_name, ' ', actor.last_name) AS full_name,
+    COUNT(film.film_id)
+FROM
+    film
+        INNER JOIN
+    film_actor ON film.film_id = film_actor.film_id
+        INNER JOIN
+    actor ON film_actor.actor_id = actor.actor_id
+    GROUP BY actor_id
+    ORDER BY COUNT(film.film_id) DESC;
 
