@@ -10,7 +10,7 @@ MYSQL_ENDPOINT=127.0.0.1
 testQuery() {
   log '======== start query ========'
   log 'show index'
-  mysql -h $MYSQL_ENDPOINT -u root -pPassw0rd -t -e "source showIndex.sql";
+  mysql -h $MYSQL_ENDPOINT -u root -pPassw0rd -t -e "source ../common/showIndex.sql";
   log 'explain'
   mysql -h $MYSQL_ENDPOINT -u root -pPassw0rd -t -e "source explainQuery.sql";
   time (cat testQuery.sql | mysql -h $MYSQL_ENDPOINT -u root -pPassw0rd > /dev/null)
