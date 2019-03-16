@@ -17,9 +17,6 @@ testQuery() {
   log '======== end query ========'
 }
 
-log 'Create dabase and table data'
-mysql -h $MYSQL_ENDPOINT -u root -pPassw0rd -t -e "source createData.sql;show warnings;commit;";
-
 log '*=*=*=*=*=*=*=*=*=*=*=*=*=*=*= Run test query(non index) *=*=*=*=*=*=*=*=*=*=*=*=*=*=*='
 testQuery
 
