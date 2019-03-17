@@ -1,0 +1,36 @@
+show index		
+before	after	
+Table: item	Table: item	Table: item
+Non_unique: 0	Non_unique: 0	Non_unique: 1
+Key_name: PRIMARY	Key_name: PRIMARY	Key_name: item_price
+Seq_in_index: 1	Seq_in_index: 1	Seq_in_index: 1
+Column_name: item_id	Column_name: item_id	Column_name: item_price
+Collation: A	Collation: A	Collation: A
+Cardinality: 5177162	Cardinality: 5177162	Cardinality: 4
+Sub_part: NULL	Sub_part: NULL	Sub_part: NULL
+Packed: NULL	Packed: NULL	Packed: NULL
+Null:	Null:	Null: YES
+Index_type: BTREE	Index_type: BTREE	Index_type: BTREE
+Comment:	Comment:	Comment:
+Index_comment:	Index_comment:	Index_comment:
+Visible: YES	Visible: YES	Visible: YES
+Expression: NULL	Expression: NULL	Expression: NULL
+		
+explain		
+before	after	
+id: 1	id: 1	
+select_type: SIMPLE	select_type: SIMPLE	
+table: item	table: item	
+partitions: NULL	partitions: NULL	
+type: ALL	type: ref	
+possible_keys: NULL	possible_keys: item_price	
+key: NULL	key: item_price	
+key_len: NULL	key_len: 5	
+ref: NULL	ref: const	
+rows: 5232668	rows: 2142084	
+filtered: 10.00	filtered: 100.00	
+Extra: Using where	Extra: Using index	
+		
+time		
+before	aftter	
+0m2.762s	0m1.244s	
