@@ -1,3 +1,9 @@
+baseinfo		
+database:index_sample		
+table:item		
+index:alter table index_sample.item add index testIndex(item_price);		
+query:select item_price from index_sample.item where item_price=100;		
+		
 show index		
 before	after	
 Table: item	Table: item	Table: item
@@ -34,3 +40,6 @@ Extra: Using where	Extra: Using index
 time		
 before	aftter	
 0m2.762s	0m1.244s	
+		
+otherinfo		
+~~~~~~~~		
