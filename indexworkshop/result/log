@@ -1,0 +1,141 @@
+2019-03-17T03:21:20 start.sh (start.sh:20:main) *=*=*=*=*=*=*=*=*=*=*=*=*=*=*= Create data *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
+mysql: [Warning] Using a password on the command line interface can be insecure.
++------------+
+|            |
++------------+
+| DROP CHECK |
++------------+
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
++--------------------+
++--------------------+
+| Database           |
++--------------------+
+| index_sample       |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
++--------------------+
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
++----------+
+| count(*) |
++----------+
+|  5242880 |
++----------+
+2019-03-17T03:22:26 start.sh (start.sh:23:main) *=*=*=*=*=*=*=*=*=*=*=*=*=*=*= Run test query(non index) *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
+2019-03-17T03:22:26 start.sh (start.sh:11:testQuery) ======== start query ========
+2019-03-17T03:22:26 start.sh (start.sh:12:testQuery) show index
+mysql: [Warning] Using a password on the command line interface can be insecure.
+*************************** 1. row ***************************
+        Table: item
+   Non_unique: 0
+     Key_name: PRIMARY
+ Seq_in_index: 1
+  Column_name: item_id
+    Collation: A
+  Cardinality: 5177162
+     Sub_part: NULL
+       Packed: NULL
+         Null: 
+   Index_type: BTREE
+      Comment: 
+Index_comment: 
+      Visible: YES
+   Expression: NULL
+2019-03-17T03:22:26 start.sh (start.sh:14:testQuery) explain
+mysql: [Warning] Using a password on the command line interface can be insecure.
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: item
+   partitions: NULL
+         type: ALL
+possible_keys: NULL
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 5232668
+     filtered: 10.00
+        Extra: Using where
+mysql: [Warning] Using a password on the command line interface can be insecure.
+
+real	0m2.762s
+user	0m0.552s
+sys	0m0.091s
+2019-03-17T03:22:29 start.sh (start.sh:17:testQuery) ======== end query ========
+2019-03-17T03:22:29 start.sh (start.sh:26:main) Add index(use index)
+mysql: [Warning] Using a password on the command line interface can be insecure.
++-----------+
+|           |
++-----------+
+| add index |
++-----------+
+2019-03-17T03:22:45 start.sh (start.sh:28:main) *=*=*=*=*=*=*=*=*=*=*=*=*=*=*= Run test query(use index) *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
+2019-03-17T03:22:45 start.sh (start.sh:11:testQuery) ======== start query ========
+2019-03-17T03:22:45 start.sh (start.sh:12:testQuery) show index
+mysql: [Warning] Using a password on the command line interface can be insecure.
+*************************** 1. row ***************************
+        Table: item
+   Non_unique: 0
+     Key_name: PRIMARY
+ Seq_in_index: 1
+  Column_name: item_id
+    Collation: A
+  Cardinality: 5177162
+     Sub_part: NULL
+       Packed: NULL
+         Null: 
+   Index_type: BTREE
+      Comment: 
+Index_comment: 
+      Visible: YES
+   Expression: NULL
+*************************** 2. row ***************************
+        Table: item
+   Non_unique: 1
+     Key_name: item_price
+ Seq_in_index: 1
+  Column_name: item_price
+    Collation: A
+  Cardinality: 4
+     Sub_part: NULL
+       Packed: NULL
+         Null: YES
+   Index_type: BTREE
+      Comment: 
+Index_comment: 
+      Visible: YES
+   Expression: NULL
+2019-03-17T03:22:45 start.sh (start.sh:14:testQuery) explain
+mysql: [Warning] Using a password on the command line interface can be insecure.
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: item
+   partitions: NULL
+         type: ref
+possible_keys: item_price
+          key: item_price
+      key_len: 5
+          ref: const
+         rows: 2142084
+     filtered: 100.00
+        Extra: Using index
+mysql: [Warning] Using a password on the command line interface can be insecure.
+
+real	0m1.244s
+user	0m0.528s
+sys	0m0.078s
+2019-03-17T03:22:47 start.sh (start.sh:17:testQuery) ======== end query ========
