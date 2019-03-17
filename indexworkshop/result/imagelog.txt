@@ -1,4 +1,5 @@
-baseinfo		
+baseinfo	
+casename:test1
 database:index_sample		
 table:item		
 index:alter table index_sample.item add index testIndex(item_price);		
